@@ -7,7 +7,7 @@ import Form from './Form.js';
 import { userSignIn } from '../../store/actions/user';
 import ErrorMessage from '../../components/ErrorMessages/ErrorMessages';
 import Button from '../../components/UI/Button/Button';
-
+import firebase from '../../components/Firebase';
 export const Login = () => {
     // react-redux hooks
     const dispatch = useDispatch();
@@ -85,19 +85,31 @@ export const Login = () => {
                         &ensp;Or connect via:
                     </p>
                     <div className="btnContainer">
-                        <label
+                        {/* <label
                             htmlFor="fb-login-button"
                             aria-label="Login with Facebook"
                         >
                             <div
-                                className="fb-login-button"
-                                data-size="large"
-                                data-button-type="login_with"
-                                data-auto-logout-link="false"
-                                data-use-continue-as="false"
-                                onClick={() => ({})}
+                                // className="fb-login-button"
+                                // data-size="large"
+                                // data-button-type="login_with"
+                                // data-auto-logout-link="false"
+                                // data-use-continue-as="false"
+                                onClick={() => firebase.googleSingIn()}
                             />
-                        </label>
+                        </label> */}
+                        <button
+                            onClick={async () => {
+                                try {
+                                    const user = await firebase.googleSignIn();
+                                    console.log(user);
+                                } catch (error) {
+                                    console.error('errere', error);
+                                }
+                            }}
+                        >
+                            Google Login
+                        </button>
                     </div>
                 </Form>
             </div>

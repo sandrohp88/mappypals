@@ -14,6 +14,7 @@ class Firebase {
     constructor() {
         app.initializeApp(config);
         this.auth = app.auth();
+        this.googleProvider = new app.auth.GoogleAuthProvider();
     }
 
     // Auth api. End points called asynchronously, they need to be
@@ -29,5 +30,7 @@ class Firebase {
     signOut = () => this.auth.signOut();
     passwordReset = email => this.auth.sendPasswordResetEmail(email);
     passwordUpdate = password => this.auth.currentUser.updatePassword(password);
+    // Social logins
+    googleSignIn = () => this.auth.signInWithPopup(this.googleProvider);
 }
 export default new Firebase();
