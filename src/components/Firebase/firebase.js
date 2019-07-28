@@ -15,6 +15,8 @@ class Firebase {
         app.initializeApp(config);
         this.auth = app.auth();
         this.googleProvider = new app.auth.GoogleAuthProvider();
+        this.facebookProvider = new app.auth.FacebookAuthProvider();
+        this.twitterProvider = new app.auth.TwitterAuthProvider();
     }
 
     // Auth api. End points called asynchronously, they need to be
@@ -32,5 +34,7 @@ class Firebase {
     passwordUpdate = password => this.auth.currentUser.updatePassword(password);
     // Social logins
     googleSignIn = () => this.auth.signInWithPopup(this.googleProvider);
+    facebookSignIn = () => this.auth.signInWithPopup(this.facebookProvider);
+    twitterSignIn = () => this.auth.signInWithPopup(this.twitterProvider);
 }
 export default new Firebase();
