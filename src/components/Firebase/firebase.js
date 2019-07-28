@@ -1,5 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore'
 const config = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -14,10 +15,14 @@ class Firebase {
     constructor() {
         app.initializeApp(config);
         this.auth = app.auth();
+        this.db = app.firestore();
         this.googleProvider = new app.auth.GoogleAuthProvider();
         this.facebookProvider = new app.auth.FacebookAuthProvider();
         this.twitterProvider = new app.auth.TwitterAuthProvider();
     }
+    // user api
+    user = uid => this.db.collection('users').doc(uid);
+    users = () => this.db.collection('users')
 
     // Auth api. End points called asynchronously, they need to be
     // resolved later
